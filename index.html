@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apa nak makan tonight?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #FFD166; font-family: 'Inter', sans-serif; text-align: center; color: #073B4C;
+    }
+    .card {
+      background: #ffffff; padding: 2.5rem 1.75rem; border-radius: 1.5rem; max-width: 400px; width: 90%;
+      border: 4px solid #073B4C; box-shadow: 12px 12px 0px 0px #073B4C; margin: 1rem;
+    }
+    h1 {
+      margin: 0 0 1.75rem 0; font-size: 2.25rem; font-weight: 900; line-height: 1.1;
+      text-transform: uppercase; letter-spacing: -0.05em; transform: rotate(-1.5deg);
+    }
+    h1 span { color: #EF476F; text-decoration: underline; text-decoration-thickness: 6px; }
+    button {
+      background: #06D6A0; color: #073B4C; border: 4px solid #073B4C; padding: 1rem 2rem;
+      font-size: 1.25rem; font-weight: 900; border-radius: 1rem; cursor: pointer; transition: all 0.1s;
+      box-shadow: 6px 6px 0px 0px #073B4C; font-family: inherit; margin-bottom: 1.5rem; width: 100%;
+      text-transform: uppercase; letter-spacing: -0.02em;
+    }
+    button:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px 0px #073B4C; }
+    button:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px 0px #073B4C; }
+    button:disabled { background: #cbd5e1; color: #64748b; border-color: #64748b; box-shadow: none; cursor: not-allowed; transform: none; }
+    #result { font-size: 1.5rem; font-weight: 700; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .emoji { font-size: 4.5rem; margin-bottom: 0.25rem; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .dish { font-size: 2rem; color: #EF476F; font-weight: 900; animation: slideUp 0.3s ease-out; text-transform: uppercase; letter-spacing: -0.03em; }
+    @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+    @keyframes slideUp { 0% { transform: translateY(15px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="card" id="dish-card">
+    <h1 id="title">Apa nak makan <br><span>tonight?</span></h1>
+    <button id="pilih-btn" onclick="pilihLauk()">Pilih untuk saya!</button>
+    <div id="result">
+      <div class="emoji">🍽️</div>
+      <div class="dish">Makan apa yer?</div>
+    </div>
+  </div>
+  <script>
+    const lauk = [
+      { name: 'Nasi Lemak', emoji: '🍛' }, { name: 'Roti Canai', emoji: '🫓' },
+      { name: 'Laksa', emoji: '🍜' }, { name: 'Satay', emoji: '🍢' },
+      { name: 'Mee Goreng', emoji: '🍝' }, { name: 'Cendol', emoji: '🍧' },
+      { name: 'Rendang', emoji: '🥩' }, { name: 'Teh Tarik', emoji: '☕' },
+      { name: 'Mee Rebus', emoji: '🍲' }, { name: 'Nasi Kerabu', emoji: '🍚' }
+    ];
+    function pilihLauk() {
+      const btn = document.getElementById('pilih-btn');
+      btn.disabled = true;
+      let count = 0;
+      const interval = setInterval(() => {
+        const temp = lauk[Math.floor(Math.random() * lauk.length)];
+        document.getElementById('result').innerHTML = `<div class="emoji" style="animation:none;">${temp.emoji}</div><div class="dish" style="animation:none;color:#94a3b8;">${temp.name}</div>`;
+        count++;
+        if (count > 8) {
+          clearInterval(interval);
+          const final = lauk[Math.floor(Math.random() * lauk.length)];
+          document.getElementById('result').innerHTML = `<div class="emoji">${final.emoji}</div><div class="dish">${final.name}</div>`;
+          btn.disabled = false;
+        }
+      }, 80);
+    }
+  </script>
+</body>
+</html>
+
